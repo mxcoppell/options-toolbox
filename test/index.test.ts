@@ -54,19 +54,21 @@ describe('Monthly Options Dates', () => {
 
   describe('isMarketHoliday', () => {
     it('should correctly identify holidays', () => {
-      expect(isMarketHoliday(new Date('2024-01-01'))).toBe(true); // New Year's Day
-      expect(isMarketHoliday(new Date('2024-01-02'))).toBe(false); // Regular day
+      const newYearsDay = new Date('2024-01-01T12:00:00');
+      const regularDay = new Date('2024-01-02T12:00:00');
+      expect(isMarketHoliday(newYearsDay)).toBe(true); // New Year's Day
+      expect(isMarketHoliday(regularDay)).toBe(false); // Regular day
     });
 
     it('should throw error for dates outside supported range', () => {
-      expect(() => isMarketHoliday(new Date('1999-12-31'))).toThrow();
-      expect(() => isMarketHoliday(new Date('2051-01-01'))).toThrow();
+      expect(() => isMarketHoliday(new Date('1999-12-31T12:00:00'))).toThrow();
+      expect(() => isMarketHoliday(new Date('2051-01-01T12:00:00'))).toThrow();
     });
 
     it('should handle special closures', () => {
-      expect(isMarketHoliday(new Date('2001-09-11'))).toBe(true);
-      expect(isMarketHoliday(new Date('2012-10-29'))).toBe(true);
-      expect(isMarketHoliday(new Date('2018-12-05'))).toBe(true);
+      expect(isMarketHoliday(new Date('2001-09-11T12:00:00'))).toBe(true);
+      expect(isMarketHoliday(new Date('2012-10-29T12:00:00'))).toBe(true);
+      expect(isMarketHoliday(new Date('2018-12-05T12:00:00'))).toBe(true);
     });
   });
 
