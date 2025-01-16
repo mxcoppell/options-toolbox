@@ -1,6 +1,6 @@
 {
   "name": "@mxcoppell/options-toolbox",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Calculate monthly stock options expiration dates with market holiday handling",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,7 +22,7 @@
     "holidays",
     "monthly"
   ],
-  "author": "mxcoppell",
+  "author": "mxcoppell (https://github.com/mxcoppell)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mxcoppell/options-toolbox/issues"
