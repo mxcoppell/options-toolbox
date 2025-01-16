@@ -1,97 +1,87 @@
-# Monthly Options Expiration Dates
+# Options Toolbox
 
-A TypeScript/JavaScript package to calculate monthly stock options expiration dates, with proper handling of market holidays.
+Calculate monthly stock options expiration dates with market holiday handling.
 
 ## Features
 
 - Calculate monthly option expiration dates (third Friday of each month)
-- Handles all US market holidays from 2000 to 2050
-- Automatically adjusts for holidays (moves to Thursday when Friday is a holiday)
-- Includes special market closures (9/11, Hurricane Sandy, etc.)
-- Written in TypeScript with full type definitions
-- Validates date ranges against available holiday data
+- Handle market holidays and weekend adjustments
+- Support for special market closures
+- TypeScript support with type definitions
+- Comprehensive test coverage
 
 ## Installation
 
 ```bash
-npm install @mxcoppell/monthly-options-dates
+npm install @mxcoppell/options-toolbox
 ```
 
 ## Usage
 
 ```typescript
-import { getMonthlyOptionExpirationDates, isMarketHoliday, generateHolidays } from '@mxcoppell/monthly-options-dates';
+import { getMonthlyOptionExpirationDates, isMarketHoliday, generateHolidays } from '@mxcoppell/options-toolbox';
 
-// Get expiration dates for specific years
-const expirationDates = getMonthlyOptionExpirationDates(2024, 2024);
-console.log(expirationDates);
-// Output: ['2024-01-19', '2024-02-16', '2024-03-15', ...]
+// Get monthly option expiration dates for 2024
+const dates = getMonthlyOptionExpirationDates(2024, 2024);
+console.log(dates);
+// ['2024-01-19', '2024-02-16', '2024-03-15', ...]
 
 // Check if a date is a market holiday
-const date = new Date('2024-01-01');
-const isHoliday = isMarketHoliday(date);
-console.log(isHoliday); // true (New Year's Day)
+const isHoliday = isMarketHoliday(new Date('2024-01-01'));
+console.log(isHoliday); // true
 
-// Generate holidays for a specific period
+// Generate list of market holidays for a year range
 const holidays = generateHolidays(2024, 2024);
 console.log(holidays);
-// Output: ['2024-01-01', '2024-01-15', '2024-02-19', ...]
-
-// Error handling for unsupported years
-try {
-    const dates = getMonthlyOptionExpirationDates(1990, 1991);
-} catch (error) {
-    console.error(error.message); // "Holiday data is only available between 2000 and 2050"
-}
+// ['2024-01-01', '2024-01-15', '2024-02-19', ...]
 ```
 
-## Supported Date Range
+## Market Holidays
 
-This package includes holiday data from 2000 to 2050. Any attempt to get expiration dates or holiday information outside this range will throw an error.
-
-## Market Holidays Included
-
+The following market holidays are included:
 - New Year's Day
-- Martin Luther King Jr. Day
-- Presidents Day
+- Martin Luther King Jr. Day (Third Monday in January)
+- Presidents Day (Third Monday in February)
 - Good Friday
-- Memorial Day
-- Juneteenth National Independence Day (from 2021)
-- Independence Day
-- Labor Day
-- Thanksgiving Day
-- Christmas Day
+- Memorial Day (Last Monday in May)
+- Juneteenth National Independence Day (June 19, since 2021)
+- Independence Day (July 4)
+- Labor Day (First Monday in September)
+- Thanksgiving Day (Fourth Thursday in November)
+- Christmas Day (December 25)
 
-Special closures:
-- September 11, 2001 terrorist attacks (Sep 11-14, 2001)
-- Hurricane Sandy (Oct 29-30, 2012)
-- President George H.W. Bush Day of Mourning (Dec 5, 2018)
-- COVID-19 Trading Floor Closure (Mar 23, 2020)
+### Holiday Observance Rules
+- If the holiday falls on a Saturday, it is usually observed on the preceding Friday
+- If the holiday falls on a Sunday, it is usually observed on the following Monday
 
-## Holiday Observance Rules
-
-- If a holiday falls on a Saturday, the market closes on the preceding Friday
-- If a holiday falls on a Sunday, the market closes on the following Monday
-- Good Friday is always observed on the Friday before Easter Sunday
-- Juneteenth (June 19) follows the same weekend observance rules as other holidays
+### Special Market Closures
+- September 11-14, 2001 (September 11 attacks)
+- October 29-30, 2012 (Hurricane Sandy)
+- December 5, 2018 (President George H.W. Bush Day of Mourning)
+- March 23, 2020 (COVID-19 Trading Floor Closure)
 
 ## API Reference
 
 ### getMonthlyOptionExpirationDates(startYear: number, endYear: number): string[]
-
-Returns an array of monthly option expiration dates for the specified years (inclusive). Throws an error if years are outside the supported range (2000-2050).
+Returns an array of monthly option expiration dates between the specified years (inclusive).
+- Dates are in YYYY-MM-DD format
+- Throws error if years are outside supported range (2000-2050)
+- Throws error if start year is greater than end year
 
 ### isMarketHoliday(date: Date): boolean
-
-Returns true if the given date is a US market holiday. Throws an error if the date is outside the supported range.
+Checks if a given date is a market holiday.
+- Returns true if the date is a holiday, false otherwise
+- Throws error if date is outside supported range
 
 ### generateHolidays(startYear: number, endYear: number): string[]
-
-Returns an array of all market holidays between the start and end years (inclusive). Throws an error if years are outside the supported range.
+Generates a list of market holidays between the specified years.
+- Returns array of dates in YYYY-MM-DD format
+- Includes special market closures if within range
+- Throws error if years are outside supported range
 
 ## License
 
-MIT
+MIT License - see LICENSE file for details.
 
 ## Contributing
 
